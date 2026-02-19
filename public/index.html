@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 40px auto;
+      }
+      nav a {
+        margin-right: 15px;
+        font-size: 1.1em;
+      }
+      .counter {
+        margin-top: 20px;
+        font-size: 1.3em;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Home</h1>
+
+    <nav>
+      <a href="/page1.html">Page 1</a>
+      <a href="/page2.html">Page 2</a>
+    </nav>
+
+    <p class="counter">
+      Total visits to this page: <strong id="hit-count">Loading...</strong>
+    </p>
+
+    <script>
+      // When the page loads, ask the server for the hit count
+      fetch("/hits/index")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("hit-count").textContent = data.count;
+        })
+        .catch((err) => {
+          document.getElementById("hit-count").textContent =
+            "Error loading count";
+          console.error(err);
+        });
+    </script>
+  </body>
+</html>
